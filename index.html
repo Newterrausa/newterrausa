@@ -1,181 +1,871 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Newterra USA</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NewterraUSA</title>
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  color: white;
-  text-align: center;
-  min-height: 100vh;
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-  background:
-    linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.25) 100%),
-    repeating-linear-gradient(
-      to right,
-      rgba(255,255,255,0.02) 0px,
-      rgba(255,255,255,0.02) 220px,
-      rgba(255,255,255,0.04) 220px,
-      rgba(255,255,255,0.04) 440px
-    ),
-    linear-gradient(135deg, #09101f, #1b3260);
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-.container {
-  padding: 60px 20px 100px;
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.10) 100%),
+        repeating-linear-gradient(
+          to right,
+          rgba(255,255,255,0.015) 0px,
+          rgba(255,255,255,0.015) 220px,
+          rgba(255,255,255,0.03) 220px,
+          rgba(255,255,255,0.03) 440px
+        ),
+        linear-gradient(135deg, #102042, #2d4f8f);
+    }
 
-/* LOGO */
-.logo {
-  width: 420px;
-  max-width: 90%;
-  margin-bottom: 20px;
-}
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 34px 20px 120px;
+    }
 
-/* FRASE PRINCIPAL */
-h1 {
-  font-size: 26px;
-  margin-top: 10px;
-}
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 20;
+    }
 
-/* SUBTEXTO */
-.subtitle {
-  font-size: 18px;
-  margin-bottom: 30px;
-}
+    .language-menu {
+      position: relative;
+      display: inline-block;
+    }
 
-/* CAIXAS */
-.box {
-  background: rgba(255,255,255,0.08);
-  padding: 25px;
-  margin: 25px auto;
-  border-radius: 15px;
-  width: 85%;
-  max-width: 650px;
-}
+    .language-button {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.16);
+    }
 
-/* TÍTULOS */
-.box h2 {
-  color: #ffd166;
-}
+    .language-dropdown {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 10px);
+      width: 280px;
+      background: rgba(10, 22, 51, 0.98);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 16px;
+      padding: 14px;
+      text-align: left;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.28);
+      display: none;
+    }
 
-/* BOTÕES */
-.button {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 12px 24px;
-  border-radius: 10px;
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-  transition: 0.3s;
-}
+    .language-dropdown.open {
+      display: block;
+    }
 
-/* EBOOK - PINK */
-.ebook {
-  background: #ff4fa3;
-  animation: pulse 2s infinite;
-}
+    .language-title {
+      font-size: 13px;
+      letter-spacing: 0.3px;
+      opacity: 0.8;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
 
-/* MOTHER'S DAY - SALMON */
-.mothers {
-  background: #f4a7a7;
-  color: #000;
-  animation: pulse 2s infinite;
-}
+    .language-priority {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
 
-/* ANIMAÇÃO */
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
+    .lang-option {
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 15px;
+      font-weight: bold;
+      text-align: left;
+      cursor: pointer;
+      color: #102042;
+      background: white;
+    }
 
-/* DUAS COLUNAS */
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
+    .lang-option.secondary {
+      background: rgba(255,255,255,0.10);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.12);
+      font-weight: 600;
+    }
 
-.small-box {
-  width: 280px;
-}
+    .translator-panel {
+      border-top: 1px solid rgba(255,255,255,0.10);
+      padding-top: 12px;
+    }
 
-/* FORM */
-input {
-  width: 80%;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 5px;
-  border: none;
-}
+    #google_translate_element {
+      margin-top: 8px;
+      min-height: 34px;
+    }
 
-.partner-btn {
-  background: #ff4fa3;
-}
-</style>
+    .logo-wrap {
+      display: inline-block;
+      margin-bottom: 26px;
+      padding: 22px 26px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    }
 
+    .logo {
+      display: block;
+      width: 560px;
+      max-width: 95%;
+      margin: 0 auto;
+    }
+
+    .tagline {
+      margin-top: 10px;
+      font-size: 26px;
+      font-weight: bold;
+      line-height: 1.3;
+      max-width: 940px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .subtext {
+      margin-top: 16px;
+      font-size: 22px;
+    }
+
+    .section {
+      margin-top: 42px;
+      padding: 24px 22px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 18px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    }
+
+    .title {
+      font-size: 30px;
+      font-weight: bold;
+      color: #ffd166;
+      margin-bottom: 14px;
+    }
+
+    .text {
+      font-size: 20px;
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 14px 28px;
+      background: white;
+      color: #102042;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.22);
+    }
+
+    .btn-ebook {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 14px 28px;
+      background: #ff4f9a;
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 1.35;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.22);
+      animation: pulseSoft 1.8s infinite ease-in-out;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-ebook:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.24);
+    }
+
+    .highlight-banner {
+      margin-top: 42px;
+      padding: 24px 22px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(255, 209, 102, 0.18), rgba(255,255,255,0.10));
+      box-shadow: 0 12px 32px rgba(0,0,0,0.20);
+      border: 1px solid rgba(255,255,255,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .highlight-title {
+      font-size: 32px;
+      font-weight: bold;
+      color: #ffd166;
+      margin-bottom: 12px;
+    }
+
+    .highlight-text {
+      font-size: 21px;
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .highlight-btn {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 16px 34px;
+      background: #f2a7a7;
+      color: #4b2121;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 18px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.20);
+      animation: pulseSoft 1.8s infinite ease-in-out;
+    }
+
+    @keyframes pulseSoft {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+
+    .country-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 55px;
+      max-width: 1180px;
+      margin-left: auto;
+      margin-right: auto;
+      align-items: stretch;
+    }
+
+    .country-panel {
+      padding: 34px 24px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.20);
+      border: 1px solid rgba(255,255,255,0.10);
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .country-panel.brazil {
+      background: linear-gradient(135deg, rgba(76,175,80,0.15), rgba(255,255,255,0.08));
+    }
+
+    .country-panel.usa {
+      background: linear-gradient(135deg, rgba(255,209,102,0.16), rgba(255,255,255,0.08));
+    }
+
+    .country-badge {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.13);
+      margin-bottom: 16px;
+    }
+
+    .country-title {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .country-text {
+      font-size: 19px;
+      line-height: 1.65;
+      opacity: 0.98;
+      margin-bottom: 16px;
+    }
+
+    .country-note {
+      font-size: 16px;
+      line-height: 1.55;
+      opacity: 0.92;
+      margin-bottom: 24px;
+    }
+
+    .moving-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      border-radius: 14px;
+      padding: 16px 22px;
+      font-weight: bold;
+      font-size: 18px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.22);
+      animation: floatArrow 1.7s infinite ease-in-out;
+    }
+
+    .moving-cta .arrow {
+      font-size: 24px;
+      line-height: 1;
+      animation: slideArrow 1.2s infinite ease-in-out;
+    }
+
+    .moving-cta.brazil-btn {
+      background: #ffe8a1;
+      color: #5f4300;
+    }
+
+    .moving-cta.usa-btn {
+      background: #dbeafe;
+      color: #1d3557;
+    }
+
+    @keyframes floatArrow {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes slideArrow {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+      100% { transform: translateX(0); }
+    }
+
+    .portal-section {
+      margin-top: 55px;
+      padding: 36px 26px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(199,249,241,0.10));
+      border-radius: 20px;
+      max-width: 980px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.20);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .portal-title {
+      font-size: 34px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .portal-title .brasil {
+      color: #4caf50;
+    }
+
+    .portal-title .eua {
+      color: #ffd166;
+    }
+
+    .portal-subtitle {
+      font-size: 22px;
+      line-height: 1.6;
+      max-width: 760px;
+      margin: 0 auto 24px;
+    }
+
+    .portal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .portal-card {
+      background: rgba(255,255,255,0.10);
+      padding: 22px 18px;
+      border-radius: 16px;
+    }
+
+    .portal-card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #ffd166;
+      font-size: 21px;
+    }
+
+    .portal-card p {
+      font-size: 17px;
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+
+    .portal-note {
+      margin-top: 24px;
+      font-size: 17px;
+      opacity: 0.95;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.10);
+      padding: 20px 18px;
+      border-radius: 14px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+    }
+
+    .card h3 {
+      color: #ffd166;
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    .card p {
+      margin-bottom: 12px;
+      line-height: 1.5;
+      font-size: 18px;
+    }
+
+    .section-subtitle {
+      font-size: 20px;
+      margin-top: 8px;
+      opacity: 0.95;
+    }
+
+    .btn-pink {
+      background: #ffcad4;
+      color: #5a1633;
+    }
+
+    .btn-green {
+      background: #d8f3dc;
+      color: #1b4332;
+    }
+
+    .btn-blue {
+      background: #dbeafe;
+      color: #1d3557;
+    }
+
+    .btn-gold {
+      background: #ffe8a1;
+      color: #5f4300;
+    }
+
+    .btn-teal {
+      background: #c7f9f1;
+      color: #155e63;
+    }
+
+    .btn-softpink {
+      background: #ffd6e0;
+      color: #7a2246;
+    }
+
+    .partner-section {
+      margin-top: 50px;
+      padding: 30px 22px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 18px;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    }
+
+    .partner-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 380px;
+      margin: 20px auto 0;
+    }
+
+    .partner-form input,
+    .partner-form textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 10px;
+      border: 0;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+    }
+
+    .partner-form textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .partner-btn {
+      border: 0;
+      cursor: pointer;
+      display: inline-block;
+      padding: 14px 26px;
+      background: #ff4f9a;
+      color: white;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 17px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.20);
+      animation: pulseSoft 1.8s infinite ease-in-out;
+    }
+
+    .footer {
+      margin-top: 50px;
+      font-size: 14px;
+      opacity: 0.82;
+      line-height: 1.6;
+    }
+
+    .footer-note {
+      margin-top: 6px;
+      font-size: 12px;
+      opacity: 0.72;
+    }
+
+    .goog-te-banner-frame.skiptranslate,
+    iframe.skiptranslate {
+      display: none !important;
+    }
+
+    body {
+      top: 0 !important;
+    }
+
+    @media (max-width: 900px) {
+      .country-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .container { padding-top: 22px; }
+      .tagline { font-size: 22px; }
+      .subtext { font-size: 18px; }
+      .title { font-size: 22px; }
+      .text { font-size: 17px; }
+      .btn { font-size: 16px; padding: 12px 22px; }
+      .btn-ebook { font-size: 16px; padding: 13px 22px; }
+      .highlight-title { font-size: 25px; }
+      .highlight-text { font-size: 17px; }
+      .highlight-btn { font-size: 16px; padding: 14px 24px; }
+      .country-title { font-size: 26px; }
+      .country-text { font-size: 17px; }
+      .country-note { font-size: 15px; }
+      .moving-cta { font-size: 16px; }
+      .card h3 { font-size: 18px; }
+      .card p { font-size: 16px; }
+      .portal-title { font-size: 26px; }
+      .portal-subtitle { font-size: 18px; }
+      .portal-card h3 { font-size: 18px; }
+      .portal-card p { font-size: 16px; }
+      .language-dropdown { width: 250px; }
+    }
+  </style>
+
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        {
+          pageLanguage: 'en',
+          includedLanguages: 'en,pt,es,fr,de,it,ja,ko,zh-CN,ar,ru,hi',
+          autoDisplay: false
+        },
+        'google_translate_element'
+      );
+    }
+
+    function toggleLanguageMenu() {
+      const dropdown = document.getElementById('languageDropdown');
+      dropdown.classList.toggle('open');
+    }
+
+    function applyLanguage(code) {
+      const interval = setInterval(function() {
+        const combo = document.querySelector('.goog-te-combo');
+        if (combo) {
+          combo.value = code;
+          combo.dispatchEvent(new Event('change'));
+          clearInterval(interval);
+        }
+      }, 400);
+    }
+
+    window.addEventListener('click', function(e) {
+      const menu = document.querySelector('.language-menu');
+      const dropdown = document.getElementById('languageDropdown');
+      if (menu && dropdown && !menu.contains(e.target)) {
+        dropdown.classList.remove('open');
+      }
+    });
+
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        applyLanguage('pt');
+      }, 1800);
+    });
+  </script>
+
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 
 <body>
+  <div class="container">
 
-<div class="container">
+    <div class="topbar">
+      <div class="language-menu">
+        <button class="language-button" onclick="toggleLanguageMenu()">Idioma / Language ▾</button>
+        <div class="language-dropdown" id="languageDropdown">
+          <div class="language-title">Idiomas principais</div>
+          <div class="language-priority">
+            <button class="lang-option" onclick="applyLanguage('pt')">Português</button>
+            <button class="lang-option" onclick="applyLanguage('en')">English</button>
+            <button class="lang-option" onclick="applyLanguage('es')">Español</button>
+          </div>
+          <div class="language-title">More languages</div>
+          <div class="translator-panel">
+            <div id="google_translate_element"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<img src="logo.png" class="logo">
+    <div class="logo-wrap">
+      <img src="logo.png" alt="NewterraUSA Logo" class="logo">
+    </div>
 
-<h1>From a point beyond the curve... to a world without limits.</h1>
-<p class="subtitle">Global vision. Human connection. Real impact.</p>
+    <div class="tagline">
+      From a point beyond the curve... to a world without limits.
+    </div>
 
-<!-- EBOOK -->
-<div class="box">
-  <h2>My Journey Beyond the Curve</h2>
-  <p>A powerful story of resilience, immigration, faith, and transformation.</p>
-  <a href="#" class="button ebook">
-    Get Your eBook Now<br>
-    Compre seu eBook
-  </a>
-</div>
+    <div class="subtext">
+      Global vision. Human connection. Real impact.
+    </div>
 
-<!-- MOTHER'S DAY -->
-<div class="box">
-  <h2>Mother’s Day Special Picks</h2>
-  <p>Thoughtful gifts selected with love for a meaningful Mother’s Day celebration.</p>
-  <a href="#" class="button mothers">Shop Mother’s Gifts</a>
-</div>
+    <div class="section">
+      <div class="title">My Journey Beyond the Curve</div>
+      <div class="text">
+        A powerful story of resilience, immigration, faith, and transformation.
+      </div>
+      <a href="https://pay.hotmart.com/R98260722N" target="_blank" class="btn-ebook">
+        Get Your eBook Now / Compre seu eBook
+      </a>
+    </div>
 
-<!-- BRASIL / EUA -->
-<div class="row">
+    <div class="highlight-banner">
+      <div class="highlight-title">Mother’s Day Special Picks</div>
+      <div class="highlight-text">
+        Thoughtful gifts selected with love for a meaningful Mother’s Day celebration.
+      </div>
+      <a href="https://amzn.to/4cRvGDm" target="_blank" class="highlight-btn">
+        Shop Mother’s Gifts
+      </a>
+    </div>
 
-  <div class="box small-box">
-    <h2>Brasil</h2>
-    <p>Compre aqui no Brasil com links da Amazon.</p>
+    <div class="country-wrapper">
+      <div class="country-panel brazil">
+        <div class="country-badge">Brasil • Português fixo</div>
+        <div class="country-title">Compre aqui no Brasil</div>
+        <div class="country-text">
+          Seleções pensadas para quem compra no Brasil, com links da Amazon Brasil e foco direto no público brasileiro.
+        </div>
+        <div class="country-note">
+          Aqui você pode destacar presentes, itens de casa, tecnologia, bem-estar, educação e oportunidades com comunicação em português.
+        </div>
+        <a href="https://amzn.to/41Mlups" target="_blank" class="moving-cta brazil-btn">
+          <span>Compre aqui na Amazon Brasil</span>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+
+      <div class="country-panel usa">
+        <div class="country-badge">USA • English market</div>
+        <div class="country-title">Shop here in the USA</div>
+        <div class="country-text">
+          Curated picks for customers in the United States, with Amazon USA links and content aimed at the U.S. audience.
+        </div>
+        <div class="country-note">
+          Perfect for seasonal campaigns, home, technology, lifestyle, learning resources, wellness, and products for everyday American life.
+        </div>
+        <a href="https://www.amazon.com" target="_blank" class="moving-cta usa-btn">
+          <span>Shop here on Amazon USA</span>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="portal-section">
+      <div class="portal-title">
+        <span class="brasil">Brasil</span> ↔ <span class="eua">EUA</span>
+      </div>
+
+      <div class="portal-subtitle">
+        Uma janela fixa em português para quem quer comprar, viajar, se informar, encontrar apoio e descobrir oportunidades entre o Brasil e os Estados Unidos — sempre sob a marca unificada NewterraUSA.
+      </div>
+
+      <div class="portal-grid">
+        <div class="portal-card">
+          <h3>Amazon Brasil</h3>
+          <p>Espaço para ofertas, listas temáticas e produtos para o público brasileiro.</p>
+          <a href="https://amzn.to/41Mlups" class="btn btn-gold" target="_blank">Compre aqui</a>
+        </div>
+
+        <div class="portal-card">
+          <h3>Amazon USA</h3>
+          <p>Área para links de afiliado voltados ao mercado americano e a quem compra nos EUA.</p>
+          <a href="https://www.amazon.com" class="btn btn-blue" target="_blank">Shop here</a>
+        </div>
+
+        <div class="portal-card">
+          <h3>Travel & Hotels</h3>
+          <p>Flights, hotels, cruises, routes, and suggestions for Brazilians who love the USA.</p>
+          <a href="#" class="btn btn-teal">Coming soon</a>
+        </div>
+
+        <div class="portal-card">
+          <h3>Insurance, Visas & Support</h3>
+          <p>Space for travel insurance, documents, passport help, and trusted partners.</p>
+          <a href="#" class="btn btn-blue">Coming soon</a>
+        </div>
+
+        <div class="portal-card">
+          <h3>Housing, Rentals & Relocation</h3>
+          <p>Guidance for those who want to move, rent, buy, or arrive better prepared in the U.S.</p>
+          <a href="#" class="btn btn-green">Coming soon</a>
+        </div>
+
+        <div class="portal-card">
+          <h3>Services & Partnerships</h3>
+          <p>Area for agencies, consulting, travel, leadership, real estate, and strategic connections.</p>
+          <a href="#partner-form" class="btn btn-softpink">Become a partner</a>
+        </div>
+      </div>
+
+      <div class="portal-note">
+        Em breve, esta área conectará oportunidades reais entre Brasil e EUA, com informação útil, serviços e compras com curadoria dentro do ecossistema NewterraUSA.
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="title">Seasonal Picks</div>
+      <div class="section-subtitle">
+        Curated selections for the season, wellness, learning, and everyday life.
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Fitness & Pilates</h3>
+          <p>Stay active, strong, and healthy this season.</p>
+          <a href="https://amzn.to/4vHxLta" class="btn btn-green" target="_blank">Shop Deals</a>
+        </div>
+
+        <div class="card">
+          <h3>Desktop Computers</h3>
+          <p>Technology picks for work, study, and productivity.</p>
+          <a href="https://amzn.to/3QKPW0K" class="btn btn-blue" target="_blank">Shop Deals</a>
+        </div>
+
+        <div class="card">
+          <h3>Apple iPhones</h3>
+          <p>High-demand mobile technology with strong everyday appeal.</p>
+          <a href="https://amzn.to/4tUmOT4" class="btn btn-blue" target="_blank">Shop Deals</a>
+        </div>
+
+        <div class="card">
+          <h3>ESL Teaching Materials</h3>
+          <p>Resources to support multilingual learning and growth.</p>
+          <a href="https://amzn.to/4ckQWRK" class="btn btn-gold" target="_blank">Shop Deals</a>
+        </div>
+
+        <div class="card">
+          <h3>Spanish Learning</h3>
+          <p>Tools and materials to learn and practice Spanish effectively.</p>
+          <a href="https://amzn.to/4dWdOZ1" class="btn btn-teal" target="_blank">Shop Deals</a>
+        </div>
+
+        <div class="card">
+          <h3>Breast Cancer Support</h3>
+          <p>Care, comfort, and strength essentials for support and healing.</p>
+          <a href="https://amzn.to/4dPEkmR" class="btn btn-softpink" target="_blank">Shop Deals</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="partner-section" id="partner-form">
+      <div class="title">Become a Partner</div>
+      <div class="text">
+        Join NewterraUSA and grow with us.
+      </div>
+      <form class="partner-form" action="mailto:newterrausa@gmail.com" method="post" enctype="text/plain">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Tell us about your business or partnership idea"></textarea>
+        <button type="submit" class="partner-btn">Apply Now</button>
+      </form>
+    </div>
+
+    <div class="section">
+      <div class="title">Coming Soon</div>
+      <div class="text">
+        <strong>ESL Educational Materials</strong><br>
+        Practical tools for multilingual learners.<br><br>
+
+        <strong>Business & Leadership Training</strong><br>
+        With Alicia Matheson<br>
+        <a href="https://mathesonglobalconsulting.com" target="_blank" style="color:#ffd166;">Learn more</a><br><br>
+
+        <strong>Real Estate Support</strong><br>
+        Helping immigrants find homes in the U.S.
+      </div>
+    </div>
+
+    <a href="mailto:newterrausa@gmail.com" class="btn">
+      Contact Us
+    </a>
+
+    <div class="footer">
+      © 2026 NewterraUSA. All rights reserved.
+      <div class="footer-note">
+        NewterraUSA is an independent brand and is not affiliated with other similarly named entities.
+      </div>
+    </div>
+
   </div>
-
-  <div class="box small-box">
-    <h2>USA</h2>
-    <p>Buy in the USA with Amazon links.</p>
-  </div>
-
-</div>
-
-<!-- PARCEIROS -->
-<div class="box">
-  <h2>Become a Partner</h2>
-  <p>Join NewterraUSA and grow with us.</p>
-
-  <input type="text" placeholder="Your Name"><br>
-  <input type="email" placeholder="Your Email"><br>
-
-  <a href="#" class="button partner-btn">Apply Now</a>
-</div>
-
-</div>
-
 </body>
 </html>
