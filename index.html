@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,127 +29,150 @@ body {
   padding: 60px 20px 100px;
 }
 
+/* LOGO */
+.logo {
+  width: 420px;
+  max-width: 90%;
+  margin-bottom: 20px;
+}
+
+/* FRASE PRINCIPAL */
 h1 {
-  font-size: 28px;
-  margin-top: 20px;
+  font-size: 26px;
+  margin-top: 10px;
 }
 
-p {
+/* SUBTEXTO */
+.subtitle {
   font-size: 18px;
+  margin-bottom: 30px;
 }
 
-.card {
+/* CAIXAS */
+.box {
   background: rgba(255,255,255,0.08);
   padding: 25px;
-  border-radius: 20px;
   margin: 25px auto;
+  border-radius: 15px;
+  width: 85%;
   max-width: 650px;
-  backdrop-filter: blur(10px);
 }
 
-.btn {
+/* TÍTULOS */
+.box h2 {
+  color: #ffd166;
+}
+
+/* BOTÕES */
+.button {
   display: inline-block;
   margin-top: 15px;
-  padding: 12px 22px;
+  padding: 12px 24px;
   border-radius: 10px;
   text-decoration: none;
+  color: white;
   font-weight: bold;
   transition: 0.3s;
 }
 
-/* BOTÃO ROSA PISCANDO */
-.btn-pink {
-  background: #ff4da6;
-  color: white;
-  animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-  100% { transform: scale(1); }
-}
-
-/* BOTÃO MÃES */
-.btn-soft {
-  background: #f5a3c7;
-  color: #222;
+/* EBOOK - PINK */
+.ebook {
+  background: #ff4fa3;
   animation: pulse 2s infinite;
 }
 
-.section-title {
-  color: #ffd166;
-  font-size: 22px;
+/* MOTHER'S DAY - SALMON */
+.mothers {
+  background: #f4a7a7;
+  color: #000;
+  animation: pulse 2s infinite;
 }
 
-.grid {
+/* ANIMAÇÃO */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* DUAS COLUNAS */
+.row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
 }
 
-.box {
-  background: rgba(255,255,255,0.08);
-  padding: 20px;
-  border-radius: 15px;
-  width: 300px;
+.small-box {
+  width: 280px;
 }
 
+/* FORM */
+input {
+  width: 80%;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+.partner-btn {
+  background: #ff4fa3;
+}
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<img src="logo.png" style="width:320px;">
+<img src="logo.png" class="logo">
 
-<h1>
-From a point beyond the curve... to a world without limits.
-</h1>
-
-<p>Global vision. Human connection. Real impact.</p>
+<h1>From a point beyond the curve... to a world without limits.</h1>
+<p class="subtitle">Global vision. Human connection. Real impact.</p>
 
 <!-- EBOOK -->
-<div class="card">
-  <h2 class="section-title">My Journey Beyond the Curve</h2>
+<div class="box">
+  <h2>My Journey Beyond the Curve</h2>
   <p>A powerful story of resilience, immigration, faith, and transformation.</p>
-  <a href="#" class="btn btn-pink">Get Your eBook Now</a>
+  <a href="#" class="button ebook">
+    Get Your eBook Now<br>
+    Compre seu eBook
+  </a>
 </div>
 
-<!-- DIA DAS MÃES -->
-<div class="card">
-  <h2 class="section-title">Mother’s Day Special Picks</h2>
+<!-- MOTHER'S DAY -->
+<div class="box">
+  <h2>Mother’s Day Special Picks</h2>
   <p>Thoughtful gifts selected with love for a meaningful Mother’s Day celebration.</p>
-  <a href="#" class="btn btn-soft">Shop Mother’s Gifts</a>
+  <a href="#" class="button mothers">Shop Mother’s Gifts</a>
 </div>
 
 <!-- BRASIL / EUA -->
-<div class="grid">
+<div class="row">
 
-  <div class="box">
-    <h3>🇧🇷 Buy in Brazil</h3>
-    <p>Products with Amazon Brazil links.</p>
+  <div class="box small-box">
+    <h2>Brasil</h2>
+    <p>Compre aqui no Brasil com links da Amazon.</p>
   </div>
 
-  <div class="box">
-    <h3>🇺🇸 Buy in USA</h3>
-    <p>Products with Amazon USA links.</p>
+  <div class="box small-box">
+    <h2>USA</h2>
+    <p>Buy in the USA with Amazon links.</p>
   </div>
 
 </div>
 
 <!-- PARCEIROS -->
-<div class="card">
-  <h2 class="section-title">Become a Partner</h2>
+<div class="box">
+  <h2>Become a Partner</h2>
   <p>Join NewterraUSA and grow with us.</p>
 
-  <form>
-    <input type="text" placeholder="Your Name" required style="padding:10px; margin:5px;"><br>
-    <input type="email" placeholder="Your Email" required style="padding:10px; margin:5px;"><br>
-    <button class="btn btn-pink">Apply Now</button>
-  </form>
+  <input type="text" placeholder="Your Name"><br>
+  <input type="email" placeholder="Your Email"><br>
+
+  <a href="#" class="button partner-btn">Apply Now</a>
 </div>
 
 </div>
